@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/GameRentalApi.Api/GameRentalApi.Api.csproj" />
+    <Project Path="src/GameRentalApi.Core/GameRentalApi.Core.csproj" />
+    <Project Path="src/GameRentalApi.Infrastructure/GameRentalApi.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/GameRentalApi.IntegrationTests/GameRentalApi.IntegrationTests.csproj" />
+    <Project Path="tests/GameRentalApi.UnitTests/GameRentalApi.UnitTests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,39 @@
+# Compilação e Artefatos do .NET (Web, ClassLib, xUnit)
+[Bb]in/
+[Oo]bj/
+out/
+[L|l]og/
+[L|l]ogs/
+
+# Testes (xUnit, Coverlet, Relatórios de Cobertura)
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+*.g.resources
+
+# Configurações de IDEs (Visual Studio, Rider, VS Code)
+**/.vscode
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Chaves e Segredos Locais
+appsettings.Local.json
+appsettings.*.local.json
+*.env
+.env.*
+!.env.example
+
+# Pacotes NuGet & Ferramentas
+*.nupkg
+*.snupkg
+.nuget/
+.dotnet/
+
+# Arquivos do Sistema Operacional
+.DS_Store
+Thumbs.db
