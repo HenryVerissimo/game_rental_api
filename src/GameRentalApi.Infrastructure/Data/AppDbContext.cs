@@ -1,4 +1,4 @@
-using GameRentalApi.Api.Models;
+using GameRentalApi.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameRentalApi.Infrastructure.Data;
