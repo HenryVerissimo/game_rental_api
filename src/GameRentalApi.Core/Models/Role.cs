@@ -9,5 +9,5 @@ public class Role
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; }
 
-    public ICollection<UserRole> UserRoles { get; set; } = new List<UserRoles>();
+    public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
 }
