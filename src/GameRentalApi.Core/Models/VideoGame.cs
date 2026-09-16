@@ -1,4 +1,4 @@
-namespace GameRentalApi.Api.Models;
+namespace GameRentalApi.Core.Models;
 
 public class VideoGame
 {

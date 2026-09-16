@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace GameRentalApi.Api.Models;
+namespace GameRentalApi.Core.Models;
 
 public class User
 {

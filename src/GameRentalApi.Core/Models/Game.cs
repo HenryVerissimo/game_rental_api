@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GameRentalApi.Api.Models;
+namespace GameRentalApi.Core.Models;
 
 
 public class Game
