@@ -10,5 +10,7 @@ public class VideoGame
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+    public DateTime? DeletedAt { get; set; } = null;
+
     public ICollection<Game> Games { get; set; } = new List<Game>();
 }
