@@ -12,6 +12,8 @@ public class Rental
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; }
 
+    public DateTime? DeletedAt { get; set; } = null;
+
     public int UserId { get; set; }
     public User User {get; set; } = null!;
     public ICollection<RentalGame> RentalGames { get; set; }= new List<RentalGame>();
