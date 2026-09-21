@@ -28,6 +28,6 @@ public class GameConfiguration : IEntityTypeConfiguration<Game>
 
         builder.HasOne(game => game.VideoGame)
             .WithMany(videoGame => videoGame.Games)
-            .HasForeignKey(VideoGame => VideoGame.VideoGameId);
+            .HasForeignKey(game => game.VideoGameId);
     }
 }
