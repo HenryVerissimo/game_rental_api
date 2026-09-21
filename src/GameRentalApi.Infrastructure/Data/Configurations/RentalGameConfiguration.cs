@@ -12,6 +12,7 @@ public class RentalGameConfiguration : IEntityTypeConfiguration<RentalGame>
         builder.HasKey(rentalGame => new { rentalGame.RentalId, rentalGame.GameId});
 
         builder.Property(rentalGame => rentalGame.UnitGamePrice)
+            .IsRequired()
             .HasPrecision(18, 2);
 
         builder.HasOne(rentalGame => rentalGame.Rental)
