@@ -12,6 +12,7 @@ public class RentalConfiguration : IEntityTypeConfiguration<Rental>
         builder.HasKey(rental => rental.Id);
 
         builder.Property(rental => rental.TotalAmount)
+            .IsRequired()
             .HasPrecision(18, 2);
 
         builder.HasOne(rental => rental.User)
