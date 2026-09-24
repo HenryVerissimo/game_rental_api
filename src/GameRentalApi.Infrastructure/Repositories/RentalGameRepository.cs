@@ -16,9 +16,11 @@ public class RentalGameRepository : IRentalGameRepository
         _context = context;
     }
 
-    public async Task<RentalGame?> GetByIdAsync(int id)
+    public async Task<RentalGame?> GetByFKsAsync(int gameId, int rentalId)
     {
-        RentalGame? rentalGame = await _context.RentalGames.FindAsync(id);
+        RentalGame? rentalGame = await _context.RentalGames.FirstOrDefaultAsync(rentalGame => 
+            (rentalGame.GameId == gameId) && (rentalGame.RentalId == rentalId));
+            
         return rentalGame;
     }
 

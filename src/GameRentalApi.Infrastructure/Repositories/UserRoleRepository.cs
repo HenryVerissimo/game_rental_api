@@ -16,9 +16,11 @@ public class UserRoleRepository : IUserRoleRepository
         _context = context;
     }
 
-    public async Task<UserRole?> GetByIdAsync(int id)
+    public async Task<UserRole?> GetByFKsAsync(int roleId, int userId)
     {
-        UserRole? userRole = await _context.UserRoles.FindAsync(id);
+        UserRole? userRole = await _context.UserRoles.FirstOrDefaultAsync(userRole =>
+            (userRole.RoleId == roleId) && (userRole.UserId == userId));
+            
         return userRole;
     }
 
