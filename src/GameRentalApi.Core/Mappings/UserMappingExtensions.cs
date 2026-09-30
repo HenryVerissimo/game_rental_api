@@ -6,13 +6,12 @@ namespace GameRentalApi.Core.Mappings;
 
 public static class UserMappingExtensions
 {
-    public static User ToUser(this UserRequestDTO userRequestDto, string passwordHash)
+    public static User ToUser(this UserRequestDTO userRequestDto)
     {
         User user = new()
         {
             Name = userRequestDto.Name,
             Email = userRequestDto.Email,
-            PasswordHash = passwordHash,
             PhoneNumber = userRequestDto.PhoneNumber,
         };
 
