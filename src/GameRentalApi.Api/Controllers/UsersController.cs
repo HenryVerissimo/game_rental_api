@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GameRentalApi.Api.Controllers;
 
-
+[ApiController]
+[Route("api/v1/[controller]")]
 public class UsersController : ControllerBase
 {
     private readonly IUserService _service;
