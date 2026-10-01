@@ -21,6 +21,12 @@ public class UserRoleService : IUserRoleService
         return userRole;
     }
 
+    public async Task<List<UserRole>> GetByUserIdAsync(int userId)
+    {
+        IEnumerable<UserRole> userRoles = await _repository.GetByUserIdAsync(userId);
+        return userRoles.ToList();
+    }
+
     public async Task<List<UserRole>> GetAllAsync()
     {
         IEnumerable<UserRole> userRoles = await _repository.GetAllAsync();
