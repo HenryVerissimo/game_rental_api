@@ -24,6 +24,15 @@ public class UserRoleRepository : IUserRoleRepository
         return userRole;
     }
 
+    public async Task<IEnumerable<UserRole>> GetByUserIdAsync(int userId)
+    {
+        List<UserRole> userRoles = await _context.UserRoles
+        .Include(userRole => userRole.Role)
+        .Where(userRole => userRole.UserId == userId).ToListAsync();
+        
+        return userRoles;
+    }
+
     public async Task<IEnumerable<UserRole>> GetAllAsync()
     {
         List<UserRole> userRoles = await _context.UserRoles.ToListAsync();
