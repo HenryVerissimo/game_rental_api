@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography;
 using GameRentalApi.Core.Contracts;
 using GameRentalApi.Core.DTOs;
@@ -21,6 +22,12 @@ public class UserService : IUserService
     public async Task<User?> GetByIdAsync(int id)
     {
         User? user = await _repository.GetByIdAsync(id);
+        return user;
+    }
+
+    public async Task<User?> GetByEmailAsync(string email)
+    {
+        User? user = await _repository.GetByEmailAsync(email);
         return user;
     }
 
