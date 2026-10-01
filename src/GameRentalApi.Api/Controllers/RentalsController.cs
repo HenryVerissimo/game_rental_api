@@ -1,6 +1,7 @@
 using GameRentalApi.Core.Contracts;
 using GameRentalApi.Core.DTOs;
 using GameRentalApi.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameRentalApi.Api.Controllers;
@@ -16,6 +17,7 @@ public class RentalsController : ControllerBase
         _service = service;
     }
 
+    [Authorize]
     [HttpGet("{id:int}")]
     public async Task<ActionResult<Rental>> GetByIdAsync([FromRoute] int id)
     {
@@ -25,21 +27,21 @@ public class RentalsController : ControllerBase
 
         return NotFound();
     }
-
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Rental>>> GetAllAsync()
     {
         List<Rental> rentals = await _service.GetAllAsync();
         return Ok(rentals);
     }
-
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<Rental>> CreateAsync([FromBody] RentalRequestDTO rentalRequestDto)
     {
         Rental rental = await _service.CreateAsync(rentalRequestDto);
         return CreatedAtAction(nameof(GetByIdAsync), new { id = rental.Id }, rental);
     }
-
+    [Authorize]
     [HttpPut("{id:int}")]
     public async Task<ActionResult> UpdateAsync([FromRoute] int id, [FromBody] RentalRequestDTO rentalRequestDto)
     {
@@ -49,7 +51,7 @@ public class RentalsController : ControllerBase
 
         return NotFound();
     }
-
+    [Authorize]
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> SoftDeleteAsync([FromRoute] int id)
     {

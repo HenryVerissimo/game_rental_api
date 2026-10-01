@@ -1,6 +1,7 @@
 using GameRentalApi.Core.Contracts;
 using GameRentalApi.Core.DTOs;
 using GameRentalApi.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameRentalApi.Api.Controllers;
@@ -16,6 +17,7 @@ public class UsersController : ControllerBase
         _service = service;
     }
 
+    [Authorize]
     [HttpGet("{id:int}")]
     public async Task<ActionResult<User>> GetByIdAsync([FromRoute] int id)
     {
@@ -26,6 +28,7 @@ public class UsersController : ControllerBase
         return NotFound();
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<User>>> GetAllAsync()
     {
@@ -33,6 +36,7 @@ public class UsersController : ControllerBase
         return Ok(users);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<User>> CreateAsync([FromBody] UserRequestDTO userRequestDto)
     {
@@ -40,6 +44,7 @@ public class UsersController : ControllerBase
         return CreatedAtAction(nameof(GetByIdAsync), new { id = user.Id }, user);
     }
 
+    [Authorize]
     [HttpPut("{id:int}")]
     public async Task<ActionResult> UpdateAsync([FromRoute] int id, [FromBody] UserRequestDTO userRequestDto)
     {
@@ -50,6 +55,7 @@ public class UsersController : ControllerBase
         return NotFound();
     }
 
+    [Authorize]
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> SoftDeleteAsync([FromRoute] int id)
     {

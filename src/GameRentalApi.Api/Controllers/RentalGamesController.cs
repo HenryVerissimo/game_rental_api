@@ -1,6 +1,7 @@
 using GameRentalApi.Core.Contracts;
 using GameRentalApi.Core.DTOs;
 using GameRentalApi.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameRentalApi.Api.Controllers;
@@ -16,6 +17,7 @@ public class RentalGamesController : ControllerBase
         _service = service;
     }
 
+    [Authorize]
     [HttpGet("{gameId:int}/{rentalId:int}")]
     public async Task<ActionResult<RentalGame>> GetByFKsAsync([FromRoute] int gameId, [FromRoute] int rentalId)
     {
@@ -26,6 +28,7 @@ public class RentalGamesController : ControllerBase
         return NotFound();
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<RentalGame>>> GetAllAsync()
     {
@@ -33,6 +36,7 @@ public class RentalGamesController : ControllerBase
         return Ok(rentalGames);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<RentalGame>> CreateAsync([FromBody] RentalGameRequestDTO rentalGameRequestDto)
     {
@@ -40,6 +44,7 @@ public class RentalGamesController : ControllerBase
         return CreatedAtAction(nameof(GetByFKsAsync), new { gameId = created.GameId, rentalId = created.RentalId}, created);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut("{gameId:int}/{rentalId:int}")]
     public async Task<ActionResult> UpdateAsync([FromRoute] int gameId, [FromRoute] int rentalId, [FromBody] RentalGameRequestDTO rentalGameRequestDto)
     {
@@ -50,6 +55,7 @@ public class RentalGamesController : ControllerBase
         return NotFound();
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{gameId:int}/{rentalId:int}")]
     public async Task<ActionResult> DeleteAsync([FromRoute] int gameId, [FromRoute] int rentalId)
     {

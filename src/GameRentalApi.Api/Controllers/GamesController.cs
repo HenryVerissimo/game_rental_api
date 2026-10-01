@@ -1,6 +1,7 @@
 using GameRentalApi.Core.Contracts;
 using GameRentalApi.Core.DTOs;
 using GameRentalApi.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameRentalApi.Api.Controllers;
@@ -16,6 +17,7 @@ public class GamesController : ControllerBase
         _service = service;
     }
 
+    [Authorize]
     [HttpGet("{id:int}")]
     public async Task<ActionResult<Game>> GetByIdAsync([FromRoute] int id)
     {
@@ -26,6 +28,7 @@ public class GamesController : ControllerBase
         return NotFound();
     }
 
+    [Authorize]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Game>>> GetAllAsync()
     {
@@ -33,6 +36,7 @@ public class GamesController : ControllerBase
         return Ok(games);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<Game>> CreateAsync([FromBody] GameRequestDTO gameRequestDto)
     {
@@ -40,6 +44,7 @@ public class GamesController : ControllerBase
         return CreatedAtAction(nameof(GetByIdAsync), new { id = game.Id}, game);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id:int}")]
     public async Task<ActionResult> UpdateAsync([FromRoute] int id, [FromBody] GameRequestDTO gameRequestDto)
     {
@@ -50,6 +55,7 @@ public class GamesController : ControllerBase
         return NotFound();
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> SoftDeleteAsync([FromRoute] int id)
     {

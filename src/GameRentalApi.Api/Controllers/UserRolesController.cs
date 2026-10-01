@@ -1,6 +1,7 @@
 using GameRentalApi.Core.Contracts;
 using GameRentalApi.Core.DTOs;
 using GameRentalApi.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameRentalApi.Api.Controllers;
@@ -15,7 +16,8 @@ public class UserRolesController : ControllerBase
     {
         _service = service;
     }
-
+    
+    [Authorize(Roles = "Admin")]
     [HttpGet("{roleId:int}/{userId:int}")]
     public async Task<ActionResult<UserRole>> GetByFKsAsync([FromRoute] int roleId, [FromRoute] int userId)
     {
@@ -26,6 +28,7 @@ public class UserRolesController : ControllerBase
         return NoContent(); 
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<UserRole>>> GetAllAsync()
     {
@@ -33,6 +36,7 @@ public class UserRolesController : ControllerBase
         return Ok(userRoles);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<UserRole>> CreateAsync(UserRoleRequestDTO userRoleRequestDto)
     {
@@ -40,6 +44,7 @@ public class UserRolesController : ControllerBase
         return CreatedAtAction(nameof(GetByFKsAsync), new { roleId = userRole.RoleId, userId = userRole.UserId }, userRole);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut("{roleId:int}/{userId:int}")]
     public async Task<ActionResult> UpdateAsync([FromRoute] int roleId, [FromRoute] int userId, [FromBody] UserRoleRequestDTO userRoleRequestDto)
     {
@@ -50,6 +55,7 @@ public class UserRolesController : ControllerBase
         return NotFound();
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{roleId:int}/{userId:int}")]
     public async Task<ActionResult> DeleteAsync([FromRoute] int roleId, [FromRoute] int userId)
     {
