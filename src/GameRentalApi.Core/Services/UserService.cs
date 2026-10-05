@@ -59,6 +59,8 @@ public class UserService : IUserService
         if (currentUser is null) return false;
 
         User updatedUser = userRequestDto.ToUser();
+        updatedUser.Id = currentUser.Id;
+
         await _repository.UpdateAsync(currentUser, updatedUser);
         return true;
     }
