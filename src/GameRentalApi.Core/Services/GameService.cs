@@ -41,6 +41,7 @@ public class GameService : IGameService
         if (currentGame is null) return false;
 
         Game updatedGame = gameRequestDto.ToGame();
+        updatedGame.Id = currentGame.Id;
 
         await _repository.UpdateAsync(currentGame, updatedGame);
         return true;
