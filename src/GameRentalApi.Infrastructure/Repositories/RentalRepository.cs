@@ -18,13 +18,14 @@ public class RentalRepository : IRentalRepository
 
     public async Task<Rental?> GetByIdAsync(int id)
     {
-        Rental? rental = await _context.Rentals.FindAsync(id);
+        Rental? rental = await _context.Rentals.FirstOrDefaultAsync(rental => rental.DeletedAt == null && rental.Id == id);
         return rental;
     }
 
     public async Task<IEnumerable<Rental>> GetAllAsync()
     {
         List<Rental> rentals = await _context.Rentals.ToListAsync();
+        rentals = rentals.Where(rental => rental.DeletedAt == null).ToList();
         return rentals;
     }
 
