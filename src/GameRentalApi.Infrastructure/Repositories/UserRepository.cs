@@ -11,26 +11,27 @@ public class UserRepository : IUserRepository
 {
     private readonly AppDbContext _context;
 
-    public UserRepository (AppDbContext context)
+    public UserRepository(AppDbContext context)
     {
         _context = context;
     }
 
     public async Task<User?> GetByIdAsync(int id)
     {
-        User? user = await _context.Users.FindAsync(id);
+        User? user = await _context.Users.FirstOrDefaultAsync(user => user.DeletedAt == null && user.Id == id);
         return user;
     }
 
     public async Task<User?> GetByEmailAsync(string email)
     {
-        User? user = await _context.Users.FirstOrDefaultAsync(user => user.Email == email);
+        User? user = await _context.Users.FirstOrDefaultAsync(user => user.DeletedAt == null && user.Email == email);
         return user;
     }
 
     public async Task<IEnumerable<User>> GetAllAsync()
     {
         List<User> users = await _context.Users.ToListAsync();
+        users = users.Where(user => user.DeletedAt == null).ToList();
         return users;
     }
 
