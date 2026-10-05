@@ -47,6 +47,9 @@ public class UserRoleService : IUserRoleService
         if (currentUserRole is null) return false;
 
         UserRole updatedUserRole = userRoleRequestDto.ToUserRole();
+        updatedUserRole.RoleId = currentUserRole.RoleId;
+        updatedUserRole.UserId = currentUserRole.UserId;
+
         await _repository.UpdateAsync(currentUserRole, updatedUserRole);
         return true;
     }
