@@ -3,7 +3,7 @@ using GameRentalApi.Core.DTOs;
 using GameRentalApi.Core.Mappings;
 using GameRentalApi.Core.Models;
 
-namespace GameRentalApi.Core.Services; 
+namespace GameRentalApi.Core.Services;
 
 
 public class RentalGameService : IRentalGameService
@@ -41,6 +41,8 @@ public class RentalGameService : IRentalGameService
         if (currentRentalGame is null) return false;
 
         RentalGame updatedRentalGame = rentalGameRequestDto.ToRentalGame();
+        updatedRentalGame.GameId = currentRentalGame.GameId;
+        updatedRentalGame.RentalId = currentRentalGame.RentalId;
 
         await _repository.UpdateAsync(currentRentalGame, updatedRentalGame);
         return true;
