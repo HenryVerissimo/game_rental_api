@@ -39,6 +39,7 @@ public class GameService : IGameService
         Game? currentGame = await _repository.GetByIdAsync(id);
 
         if (currentGame is null) return false;
+        if (currentGame.DeletedAt != null) return false;
 
         Game updatedGame = gameRequestDto.ToGame();
         updatedGame.Id = currentGame.Id;
