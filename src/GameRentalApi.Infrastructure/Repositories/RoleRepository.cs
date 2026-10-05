@@ -18,13 +18,14 @@ public class RoleRepository : IRoleRepository
 
     public async Task<Role?> GetByIdAsync(int id)
     {
-        Role? role = await _context.Roles.FindAsync(id);
+        Role? role = await _context.Roles.FirstOrDefaultAsync(role => role.DeletedAt == null && role.Id == id);
         return role;
     }
 
     public async Task<IEnumerable<Role>> GetAllAsync()
     {
         List<Role> roles = await _context.Roles.ToListAsync();
+        roles = roles.Where(role => role.DeletedAt == null).ToList();
         return roles;
     }
 
