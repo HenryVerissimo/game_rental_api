@@ -17,13 +17,14 @@ public class GameRepository : IGameRepository
 
     public async Task<Game?> GetByIdAsync(int id)
     {
-        Game? game = await _context.Games.FindAsync(id);
+        Game? game = await _context.Games.FirstOrDefaultAsync(game => game.DeletedAt == null && game.Id == id);
         return game;
     }
 
     public async Task<IEnumerable<Game>> GetAllAsync()
     {
         List<Game> games = await _context.Games.ToListAsync();
+        games = games.Where(game => game.DeletedAt == null).ToList();
         return games;
     }
 
