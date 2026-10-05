@@ -9,7 +9,7 @@ namespace GameRentalApi.Core.Services;
 public class RentalService : IRentalService
 {
     private readonly IRentalRepository _repository;
-    
+
     public RentalService(IRentalRepository repository)
     {
         _repository = repository;
@@ -41,6 +41,7 @@ public class RentalService : IRentalService
         if (currentRental is null) return false;
 
         Rental updatedRental = rentalRequestDto.ToRental();
+        updatedRental.Id = currentRental.Id;
 
         await _repository.UpdateAsync(currentRental, updatedRental);
         return true;
@@ -54,5 +55,5 @@ public class RentalService : IRentalService
 
         await _repository.SoftDeleteAsync(rental);
         return true;
-    } 
+    }
 }
