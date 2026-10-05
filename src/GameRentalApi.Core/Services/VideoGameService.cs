@@ -41,6 +41,8 @@ public class VideoGameService : IVideoGameService
         if (currentVideoGame is null) return false;
 
         VideoGame updatedVideoGame = videoGameRequestDto.ToVideoGame();
+        updatedVideoGame.Id = currentVideoGame.Id;
+
         await _repository.UpdateAsync(currentVideoGame, updatedVideoGame);
         return true;
     }
