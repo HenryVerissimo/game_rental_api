@@ -39,6 +39,7 @@ public class VideoGameService : IVideoGameService
         VideoGame? currentVideoGame = await _repository.GetByIdAsync(id);
 
         if (currentVideoGame is null) return false;
+        if (currentVideoGame.DeletedAt != null) return false;
 
         VideoGame updatedVideoGame = videoGameRequestDto.ToVideoGame();
         updatedVideoGame.Id = currentVideoGame.Id;
