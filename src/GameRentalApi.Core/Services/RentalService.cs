@@ -39,6 +39,7 @@ public class RentalService : IRentalService
         Rental? currentRental = await _repository.GetByIdAsync(id);
 
         if (currentRental is null) return false;
+        if (currentRental.DeletedAt != null) return false;
 
         Rental updatedRental = rentalRequestDto.ToRental();
         updatedRental.Id = currentRental.Id;
