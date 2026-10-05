@@ -57,6 +57,7 @@ public class UserService : IUserService
         User? currentUser = await _repository.GetByIdAsync(id);
 
         if (currentUser is null) return false;
+        if (currentUser.DeletedAt != null) return false;
 
         User updatedUser = userRequestDto.ToUser();
         updatedUser.Id = currentUser.Id;
