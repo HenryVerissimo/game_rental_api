@@ -41,6 +41,8 @@ public class RoleService : IRoleService
         if (currentRole is null) return false;
 
         Role updatedRole = roleRequestDto.ToRole();
+        updatedRole.Id = currentRole.Id;
+
         await _repository.UpdateAsync(currentRole, updatedRole);
         return true;
     }
