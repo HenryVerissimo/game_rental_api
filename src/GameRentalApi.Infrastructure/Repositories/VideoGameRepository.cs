@@ -18,13 +18,16 @@ public class VideoGameRepository : IVideoGameRepository
 
     public async Task<VideoGame?> GetByIdAsync(int id)
     {
-        VideoGame? videoGame = await _context.VideoGames.FindAsync(id);
+        VideoGame? videoGame = await _context.VideoGames.FirstOrDefaultAsync(videoGame =>
+            videoGame.DeletedAt == null && videoGame.Id == id);
+
         return videoGame;
     }
 
     public async Task<IEnumerable<VideoGame>> GetAllAsync()
     {
         List<VideoGame> videogames = await _context.VideoGames.ToListAsync();
+        videogames = videogames.Where(videoGame => videoGame.DeletedAt == null).ToList();
         return videogames;
     }
 
