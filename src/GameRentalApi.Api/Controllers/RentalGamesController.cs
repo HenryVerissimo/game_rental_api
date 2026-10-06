@@ -40,8 +40,13 @@ public class RentalGamesController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<RentalGame>> CreateAsync([FromBody] RentalGameRequestDTO rentalGameRequestDto)
     {
-        RentalGame created = await _service.CreateAsync(rentalGameRequestDto);
-        return CreatedAtAction(nameof(GetByFKsAsync), new { gameId = created.GameId, rentalId = created.RentalId}, created);
+        RentalGame? created = await _service.CreateAsync(rentalGameRequestDto);
+
+        if (created is null) return BadRequest(
+            "The rental or game IDs may be invalid, or the game does not have enough available copies for your rental."
+        );
+
+        return CreatedAtAction(nameof(GetByFKsAsync), new { gameId = created.GameId, rentalId = created.RentalId }, created);
     }
 
     [Authorize(Roles = "Admin")]
